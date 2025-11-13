@@ -1,7 +1,12 @@
 import { useState, useEffect } from "react";
 import { ChevronLeft, ChevronRight, ChevronDown } from "lucide-react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { menuItems, processItems, type MenuItem, type ProcessItem } from "@/app/config/menu";
+import {
+  menuItems,
+  processItems,
+  type MenuItem,
+  type ProcessItem,
+} from "@/app/config/menu";
 import { Icon } from "@iconify-icon/react";
 import { useNavigation } from "@/shared/hooks/useNavigation";
 import LoadingSpinner from "@/shared/components/ui/loading-spinner";
@@ -154,7 +159,7 @@ const Sidebar = ({
                       onClick={() => handleItemClick(item.path)}
                       className={`w-full text-left px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-200 ${
                         isActive(item.path)
-                          ? "bg-comfama text-white"
+                          ? "bg-[#FF277E] text-white"
                           : "text-gray-600 hover:bg-gray-50"
                       }`}
                     >
@@ -172,5 +177,3 @@ const Sidebar = ({
 };
 
 export default Sidebar;
-
-

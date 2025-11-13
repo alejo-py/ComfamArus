@@ -5,12 +5,11 @@ import {
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger,
-  DropdownMenuSeparator,
 } from "@/shared/components/ui/dropdown-menu";
 import { Button } from "@/shared/components/ui/button";
 import { ArrowUpDown, ArrowUp, ArrowDown } from "lucide-react";
 
-interface DataTableColumnHeaderProps<TData, TValue>
+interface DataTableColumnHeaderProps
   extends React.HTMLAttributes<HTMLDivElement> {
   title: string;
   column: {
@@ -21,11 +20,11 @@ interface DataTableColumnHeaderProps<TData, TValue>
   };
 }
 
-export function DataPlateColumnHeader<TData, TValue>({
+export function DataPlateColumnHeader({
   title,
   column,
   className,
-}: DataTableColumnHeaderProps<TData, TValue>) {
+}: DataTableColumnHeaderProps) {
   if (!column.getCanSort()) {
     return <div className={cn(className)}>{title}</div>;
   }

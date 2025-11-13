@@ -22,10 +22,10 @@ const Header = () => {
         </button>
       </div>
       <div className="flex items-center space-x-6">
-        <span className="text-lg text-white bg-comfama px-2 py-1 rounded-lg font-medium">
+        <span className="text-lg text-white bg-[#FF277E] px-2 py-1 rounded-lg font-medium">
           {getSectionName()}
         </span>
-        <div className="w-8 h-8 bg-comfama rounded-full flex items-center justify-center">
+        <div className="w-8 h-8 bg-[#FF277E] rounded-full flex items-center justify-center">
           <User className="w-5 h-5 text-white" />
         </div>
       </div>

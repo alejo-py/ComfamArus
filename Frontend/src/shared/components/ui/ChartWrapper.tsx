@@ -19,7 +19,7 @@ import {
 
 // Wrapper para Legend para evitar problemas de tipos con TypeScript
 const LegendWrapper: React.FC<any> = (props) => {
-  // @ts-expect-error - recharts Legend tiene problemas de tipos con TypeScript
+  // @ts-ignore - recharts Legend tiene problemas de tipos con TypeScript
   return React.createElement(Legend, props);
 };
 
@@ -108,6 +108,43 @@ const ChartWrapper: React.FC<ChartWrapperProps> = ({
     ...config,
   };
 
+  // Convertir width/height a número o formato de porcentaje válido
+  const normalizeSize = (
+    size: string | number | undefined
+  ): number | `${number}%` | undefined => {
+    if (size === undefined) return undefined;
+    if (typeof size === "number") return size;
+    if (typeof size === "string") {
+      if (size.endsWith("%")) {
+        const num = parseFloat(size);
+        if (!isNaN(num)) return `${num}%` as `${number}%`;
+      } else if (
+        size.endsWith("vh") ||
+        size.endsWith("vw") ||
+        size.endsWith("px")
+      ) {
+        const num = parseFloat(size);
+        if (!isNaN(num)) return num;
+      }
+    }
+    return undefined;
+  };
+
+  // Normalizar margin para asegurar que no tenga undefined
+  const normalizeMargin = (margin?: {
+    top?: number;
+    right?: number;
+    left?: number;
+    bottom?: number;
+  }): { top: number; right: number; left: number; bottom: number } => {
+    return {
+      top: margin?.top ?? 5,
+      right: margin?.right ?? 30,
+      left: margin?.left ?? 20,
+      bottom: margin?.bottom ?? 5,
+    };
+  };
+
   // Renderizar elementos comunes
   const renderCommonElements = () => (
     <>
@@ -194,25 +231,27 @@ const ChartWrapper: React.FC<ChartWrapperProps> = ({
   const renderPieChart = () => {
     if (type !== "pie") return null;
 
+    const chartWidth = normalizeSize(finalConfig.width) ?? 500;
+    const chartHeight = normalizeSize(finalConfig.height) ?? 300;
+    const chartMargin = normalizeMargin(finalConfig.margin);
+
     return (
-      <PieChart
-        width={finalConfig.width}
-        height={finalConfig.height}
-        margin={finalConfig.margin}
-      >
+      <PieChart width={chartWidth} height={chartHeight} margin={chartMargin}>
         <Pie
           data={data}
           cx="50%"
           cy="50%"
           labelLine={false}
-          label={({ name, percent }: { name: string; percent: number }) =>
-            `${name} ${(percent * 100).toFixed(0)}%`
-          }
+          label={(props: any) => {
+            const name = props.name ?? "";
+            const percent = props.percent ?? 0;
+            return `${name} ${(percent * 100).toFixed(0)}%`;
+          }}
           outerRadius={80}
           fill="#8884d8"
           dataKey={series[0]?.dataKey || "value"}
         >
-          {data.map((entry, index) => (
+          {data.map((_entry, index) => (
             <Cell key={`cell-${index}`} fill={getColorByIndex(index)} />
           ))}
         </Pie>
@@ -224,11 +263,15 @@ const ChartWrapper: React.FC<ChartWrapperProps> = ({
 
   // Renderizar gráfico principal
   const renderMainChart = () => {
+    const chartWidth = normalizeSize(finalConfig.width) ?? 500;
+    const chartHeight = normalizeSize(finalConfig.height) ?? 300;
+    const chartMargin = normalizeMargin(finalConfig.margin);
+
     const commonProps = {
-      width: finalConfig.width,
-      height: finalConfig.height,
+      width: chartWidth,
+      height: chartHeight,
       data,
-      margin: finalConfig.margin,
+      margin: chartMargin,
     };
 
     switch (type) {
@@ -276,7 +319,10 @@ const ChartWrapper: React.FC<ChartWrapperProps> = ({
       )}
 
       <div className="flex justify-center">
-        <ResponsiveContainer width="100%" height={finalConfig.height}>
+        <ResponsiveContainer
+          width="100%"
+          height={normalizeSize(finalConfig.height) ?? 300}
+        >
           {renderMainChart()}
         </ResponsiveContainer>
       </div>
@@ -285,4 +331,3 @@ const ChartWrapper: React.FC<ChartWrapperProps> = ({
 };
 
 export default ChartWrapper;
-

@@ -1,6 +1,4 @@
-@theme {
-  --color-comfama: #FF277E;
-}
+@import "tailwindcss";
 
 :root {
   --foreground-rgb: 0, 0, 0;
@@ -15,6 +13,7 @@
     --background-end-rgb: 0, 0, 0;
   }
 }
+
 
 @layer base {
   :root {
@@ -72,6 +71,14 @@
   }
 }
 
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
 
 @layer base {
   h1,

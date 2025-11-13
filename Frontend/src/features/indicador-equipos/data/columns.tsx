@@ -1,4 +1,3 @@
-import type { User } from "./users";
 import { MoreHorizontal } from "lucide-react";
 import { Button } from "@/shared/components/ui/button";
 import {

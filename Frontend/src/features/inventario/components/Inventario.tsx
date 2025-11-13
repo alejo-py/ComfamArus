@@ -788,7 +788,7 @@ const Inventario = () => {
         {/* Botón CARGAR ARCHIVO */}
         <div className="bg-white rounded-lg border p-4">
           <div className="flex items-center gap-2 mb-2">
-            <FileSpreadsheet className="h-5 w-5 text-comfama" />
+            <FileSpreadsheet className="h-5 w-5 text-[#FF277E]" />
             <h3 className="font-semibold text-gray-800">Cargar Inventario</h3>
           </div>
           <p className="text-sm text-gray-600 mb-3">
@@ -899,7 +899,7 @@ const Inventario = () => {
               <FileSpreadsheet className="h-4 w-4 text-gray-500" />
               <span className="text-sm text-gray-600">Seriales escritos:</span>
             </div>
-            <span className="text-2xl font-bold text-comfama">
+            <span className="text-2xl font-bold text-[#FF277E]">
               {rows.filter((row) => row.serial.trim().length > 0).length}
             </span>
           </div>
@@ -938,7 +938,7 @@ const Inventario = () => {
         {/* Botón enviar */}
         <Button
           onClick={handleEnviar}
-          className="w-full bg-comfama hover:bg-comfama/90 text-white px-6 py-3 rounded-lg font-medium shadow-md transition-all duration-200 flex items-center justify-center gap-2"
+          className="w-full bg-[#FF277E] hover:bg-[#FF277E]/90 text-white px-6 py-3 rounded-lg font-medium shadow-md transition-all duration-200 flex items-center justify-center gap-2"
         >
           <Send className="h-4 w-4" />
           Comparar Seriales
@@ -1011,7 +1011,7 @@ const Inventario = () => {
                 {/* Estadísticas por Estado */}
                 <div className="bg-white rounded-xl border border-gray-200 p-5 shadow-sm">
                   <div className="flex items-center gap-2 mb-4">
-                    <AlertCircle className="h-5 w-5 text-comfama" />
+                    <AlertCircle className="h-5 w-5 text-[#FF277E]" />
                     <h3 className="text-lg font-semibold text-gray-800">
                       Por Estado
                     </h3>
@@ -1072,7 +1072,7 @@ const Inventario = () => {
                 {/* Gráfica de Torta - Distribución por Estado */}
                 <div className="bg-white rounded-xl border border-gray-200 p-5 shadow-sm">
                   <div className="flex items-center gap-2 mb-4">
-                    <BarChart3 className="h-5 w-5 text-comfama" />
+                    <BarChart3 className="h-5 w-5 text-[#FF277E]" />
                     <h3 className="text-lg font-semibold text-gray-800">
                       Distribución Visual
                     </h3>
@@ -1113,7 +1113,7 @@ const Inventario = () => {
                         <Tooltip
                           formatter={(
                             value: number,
-                            name: string,
+                            _name: string,
                             props: any
                           ) => [
                             `${value} equipos`,

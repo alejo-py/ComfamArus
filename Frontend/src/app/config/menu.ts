@@ -1,5 +1,3 @@
-import { Icon } from "@iconify-icon/react";
-
 export interface MenuItem {
   id: string;
   label: string;

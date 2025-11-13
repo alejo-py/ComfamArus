@@ -92,7 +92,7 @@ const TodoList = ({
     <section className="w-full max-w-2xl mx-auto">
       {showHeader && (
         <div className="flex items-center justify-between mb-6 pb-4 border-b border-gray-200">
-          <h2 className="text-3xl font-bold bg-gradient-to-r from-comfama to-pink-600 bg-clip-text text-transparent">
+          <h2 className="text-3xl font-bold bg-gradient-to-r from-[#FF277E] to-pink-600 bg-clip-text text-transparent">
             {title}
           </h2>
           <div className="flex items-center gap-2">
@@ -121,13 +121,13 @@ const TodoList = ({
           placeholder="¿Qué necesitas hacer?"
           aria-label="Nueva tarea"
           className="flex-1 border-2 border-gray-200 rounded-lg px-4 py-3 text-black placeholder-gray-400 
-                     focus:outline-none focus:border-comfama focus:ring-2 focus:ring-comfama/20 
+                     focus:outline-none focus:border-[#FF277E] focus:ring-2 focus:ring-[#FF277E]/20 
                      transition-all duration-200 shadow-sm hover:border-gray-300 
                      bg-white font-medium"
         />
         <button
           onClick={handleAdd}
-          className="px-6 py-3 rounded-lg bg-gradient-to-r from-comfama to-pink-600 text-white 
+          className="px-6 py-3 rounded-lg bg-gradient-to-r from-[#FF277E] to-pink-600 text-white 
                      font-semibold hover:scale-105 hover:shadow-lg active:scale-95 
                      transition-all duration-200 shadow-md disabled:opacity-50 disabled:cursor-not-allowed
                      disabled:hover:scale-100"
@@ -153,7 +153,7 @@ const TodoList = ({
               <li
                 key={item.id}
                 className="group flex items-center gap-3 rounded-xl border-2 border-gray-200 
-                           p-4 bg-white shadow-sm hover:shadow-md hover:border-comfama/30 
+                           p-4 bg-white shadow-sm hover:shadow-md hover:border-[#FF277E]/30 
                            transition-all duration-200"
               >
                 <label className="flex items-center gap-3 cursor-pointer flex-1 min-w-0">
@@ -164,10 +164,10 @@ const TodoList = ({
                       onChange={() => handleToggle(item.id)}
                       aria-label={`Marcar ${item.text}`}
                       className="w-5 h-5 rounded border-2 border-gray-300 
-                                 checked:bg-comfama checked:border-comfama
+                                 checked:bg-[#FF277E] checked:border-[#FF277E]
                                  cursor-pointer appearance-none transition-all duration-200
-                                 hover:border-comfama focus:outline-none focus:ring-2 
-                                 focus:ring-comfama/20"
+                                 hover:border-[#FF277E] focus:outline-none focus:ring-2 
+                                 focus:ring-[#FF277E]/20"
                       style={{
                         backgroundImage: item.completed
                           ? `url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='white'%3E%3Cpath fill-rule='evenodd' d='M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z' clip-rule='evenodd'/%3E%3C/svg%3E")`
@@ -208,7 +208,7 @@ const TodoList = ({
                 onClick={handleClearCompleted}
                 className="w-full px-4 py-2 rounded-lg text-sm font-medium
                            text-gray-600 hover:text-white hover:bg-gradient-to-r 
-                           hover:from-comfama hover:to-pink-600
+                           hover:from-[#FF277E] hover:to-pink-600
                            transition-all duration-200 border border-gray-300 
                            hover:border-transparent"
               >

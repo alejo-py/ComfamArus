@@ -17,7 +17,7 @@ import {
 } from "@tanstack/react-table";
 import { Input } from "@/shared/components/ui/input";
 
-interface DataTableProps<TData, TValue> {
+interface DataTableProps<TData> {
   data: TData[];
   columns: any[];
   caption?: string;
@@ -25,19 +25,18 @@ interface DataTableProps<TData, TValue> {
   searchButton?: React.ReactNode;
 }
 
-export default function DataTable<TData, TValue>({
+export default function DataTable<TData>({
   data,
   columns,
   caption,
   globalFilterColumn,
   searchButton,
-}: DataTableProps<TData, TValue>) {
+}: DataTableProps<TData>) {
   const [sorting, setSorting] = useState<any>([]);
   const [columnFilters, setColumnFilters] = useState<any>([]);
   const tableContainerRef = React.useRef<HTMLDivElement | null>(null);
   const tableRef = React.useRef<HTMLTableElement | null>(null);
-  const [contentWidth, setContentWidth] = React.useState<number>(0);
-  const isSyncingRef = React.useRef<boolean>(false);
+  const [, setContentWidth] = React.useState<number>(0);
   const [globalFilter, setGlobalFilter] = useState<string>("");
 
   const table = useReactTable({
@@ -49,7 +48,7 @@ export default function DataTable<TData, TValue>({
     onColumnFiltersChange: setColumnFilters,
     onSortingChange: setSorting,
     onGlobalFilterChange: setGlobalFilter,
-    globalFilterFn: (row: any, columnId: any, filterValue: string) => {
+    globalFilterFn: (row: any, _columnId: any, filterValue: string) => {
       if (!filterValue) return true;
       const searchValue = filterValue.toLowerCase().trim();
       // Buscar en todas las columnas visibles
@@ -93,16 +92,6 @@ export default function DataTable<TData, TValue>({
     return () => ro.disconnect();
   }, []);
 
-  const handleBottomScroll = (e: React.UIEvent<HTMLDivElement>) => {
-    if (isSyncingRef.current) return;
-    isSyncingRef.current = true;
-    if (tableContainerRef.current) {
-      tableContainerRef.current.scrollLeft = (
-        e.target as HTMLDivElement
-      ).scrollLeft;
-    }
-    isSyncingRef.current = false;
-  };
 
   return (
     <div className="space-y-4 h-full flex flex-col">
@@ -129,11 +118,6 @@ export default function DataTable<TData, TValue>({
                 <TableRow key={headerGroup.id}>
                   {headerGroup.headers.map((header: any) => {
                     const columnDef = header.column.columnDef as any;
-                    const width = columnDef.size
-                      ? `${columnDef.size}px`
-                      : columnDef.minSize
-                      ? `minmax(${columnDef.minSize}px, 1fr)`
-                      : "1fr";
                     return (
                       <TableHead
                         key={header.id}

@@ -1,10 +1,14 @@
-import { Suspense } from "react";
+import { Suspense, lazy } from "react";
 import { Routes, Route, Navigate } from "react-router-dom";
 import AppLayout from "../app/layout/AppLayout";
 import MainContent from "@/features/dashboard/components/MainContent";
-import TodoList from "@/features/pendientes/components/TodoList";
 import LoadingSpinner from "@/shared/components/ui/loading-spinner";
-import { processRoutes, isValidProcess, getProcessComponent } from "./routes";
+import { processRoutes } from "./routes";
+
+// Lazy load de TodoList para evitar importación estática
+const TodoList = lazy(
+  () => import("@/features/pendientes/components/TodoList")
+);
 
 // Componente de carga para Suspense
 const PageLoader = () => (

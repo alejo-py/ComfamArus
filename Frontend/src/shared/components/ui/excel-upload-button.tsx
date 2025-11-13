@@ -145,7 +145,7 @@ const ExcelUploadButton: React.FC<ExcelUploadButtonProps> = ({
     <>
       <Button
         onClick={handleOpenModal}
-        className={`relative bg-comfama hover:bg-comfama text-white px-6 py-2 rounded-lg font-medium transition-all duration-300 transform hover:scale-105 ${buttonClassName}`}
+        className={`relative bg-[#FF277E] hover:bg-[#FF277E] text-white px-6 py-2 rounded-lg font-medium transition-all duration-300 transform hover:scale-105 ${buttonClassName}`}
       >
         <Download className="h-4 w-4 mr-2" />
         {buttonText}
@@ -158,7 +158,7 @@ const ExcelUploadButton: React.FC<ExcelUploadButtonProps> = ({
             {/* Header del modal */}
             <div className="flex items-center justify-between mb-6">
               <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-comfama rounded-lg flex items-center justify-center">
+                <div className="w-10 h-10 bg-[#FF277E] rounded-lg flex items-center justify-center">
                   <FileSpreadsheet className="h-5 w-5 text-white" />
                 </div>
                 <div>
@@ -182,7 +182,7 @@ const ExcelUploadButton: React.FC<ExcelUploadButtonProps> = ({
             <div
               className={`border-2 border-dashed rounded-lg p-8 text-center transition-all duration-300 ${
                 isDragOver
-                  ? "border-comfama bg-comfama/5"
+                  ? "border-[#FF277E] bg-[#FF277E]/5"
                   : "border-gray-300 hover:border-gray-400"
               }`}
               onDrop={handleDrop}
@@ -228,7 +228,7 @@ const ExcelUploadButton: React.FC<ExcelUploadButtonProps> = ({
                   <Button
                     onClick={() => fileInputRef.current?.click()}
                     variant="outline"
-                    className="border-comfama text-comfama hover:bg-comfama hover:text-white"
+                    className="border-[#FF277E] text-[#FF277E] hover:bg-[#FF277E] hover:text-white"
                   >
                     <Upload className="h-4 w-4 mr-2" />
                     Seleccionar archivo
@@ -275,7 +275,7 @@ const ExcelUploadButton: React.FC<ExcelUploadButtonProps> = ({
               <Button
                 onClick={handleUpload}
                 disabled={!selectedFile || isUploading || uploadSuccess}
-                className="flex-1 bg-comfama hover:bg-comfama text-white disabled:opacity-50 disabled:cursor-not-allowed"
+                className="flex-1 bg-[#FF277E] hover:bg-[#FF277E] text-white disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 {isUploading || uploadSuccess ? (
                   <>

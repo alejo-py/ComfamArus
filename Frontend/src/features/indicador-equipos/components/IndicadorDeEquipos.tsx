@@ -161,7 +161,7 @@ const IndicadorDeEquipos = () => {
                 <div className="absolute -inset-1 rounded-lg group-hover:opacity-50 transition duration-1000 group-hover:duration-200"></div>
                 <Button
                   onClick={() => setShowFilters(!showFilters)}
-                  className="relative bg-comfama hover:bg-comfama text-white px-6 py-2 rounded-lg font-medium transition-all duration-300 transform hover:scale-105"
+                  className="relative bg-[#FF277E] hover:bg-[#FF277E] text-white px-6 py-2 rounded-lg font-medium transition-all duration-300 transform hover:scale-105"
                 >
                   <Filter className="h-4 w-4 mr-2" />
                   Filtros
@@ -175,7 +175,7 @@ const IndicadorDeEquipos = () => {
 
               {appliedFilters.length > 0 && (
                 <div className="flex items-center gap-2">
-                  <span className="bg-comfama text-white px-3 py-1 rounded-full text-sm font-medium">
+                  <span className="bg-[#FF277E] text-white px-3 py-1 rounded-full text-sm font-medium">
                     {appliedFilters.length} filtro
                     {appliedFilters.length > 1 ? "s" : ""} aplicado
                     {appliedFilters.length > 1 ? "s" : ""}
@@ -215,10 +215,10 @@ const IndicadorDeEquipos = () => {
                         animationDelay: `${index * 100}ms`,
                       }}
                     >
-                      <div className="bg-white rounded-xl p-4 shadow-md border border-gray-200 hover:shadow-lg transition-all duration-300 hover:border-comfama group">
+                      <div className="bg-white rounded-xl p-4 shadow-md border border-gray-200 hover:shadow-lg transition-all duration-300 hover:border-[#FF277E] group">
                         <div className="flex items-center gap-3">
                           {/* Número de filtro */}
-                          <div className="flex-shrink-0 w-8 h-8 bg-comfama rounded-full flex items-center justify-center text-white font-bold text-sm">
+                          <div className="flex-shrink-0 w-8 h-8 bg-[#FF277E] rounded-full flex items-center justify-center text-white font-bold text-sm">
                             {index + 1}
                           </div>
 
@@ -232,7 +232,7 @@ const IndicadorDeEquipos = () => {
                               onChange={(e) =>
                                 updateFilter(filter.id, "field", e.target.value)
                               }
-                              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-comfama focus:border-comfama transition-all duration-200 bg-white"
+                              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-[#FF277E] focus:border-[#FF277E] transition-all duration-200 bg-white"
                             >
                               {fieldOptions.map((option) => (
                                 <option key={option.value} value={option.value}>
@@ -256,7 +256,7 @@ const IndicadorDeEquipos = () => {
                                   e.target.value
                                 )
                               }
-                              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-comfama focus:border-comfama transition-all duration-200 bg-white"
+                              className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-[#FF277E] focus:border-[#FF277E] transition-all duration-200 bg-white"
                             >
                               {operatorOptions.map((option) => (
                                 <option key={option.value} value={option.value}>
@@ -282,7 +282,7 @@ const IndicadorDeEquipos = () => {
                                     e.target.value
                                   )
                                 }
-                                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-comfama focus:border-comfama transition-all duration-200"
+                                className="w-full px-3 py-2 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-[#FF277E] focus:border-[#FF277E] transition-all duration-200"
                               />
                             </div>
                           )}
@@ -309,7 +309,7 @@ const IndicadorDeEquipos = () => {
               <div className="flex items-center justify-between p-6 pt-4 border-t border-gray-200 bg-white rounded-b-xl">
                 <Button
                   onClick={addFilter}
-                  className="bg-comfama hover:bg-comfama text-white px-6 py-2 rounded-lg font-medium transition-all duration-300 transform hover:scale-105 shadow-lg"
+                  className="bg-[#FF277E] hover:bg-[#FF277E] text-white px-6 py-2 rounded-lg font-medium transition-all duration-300 transform hover:scale-105 shadow-lg"
                 >
                   <Plus className="h-4 w-4 mr-2" />
                   Agregar Filtro
@@ -326,7 +326,7 @@ const IndicadorDeEquipos = () => {
                   </Button>
                   <Button
                     onClick={applyFilters}
-                    className="bg-comfama hover:bg-comfama text-white px-6 py-2 rounded-lg font-medium transition-all duration-300 transform hover:scale-105 shadow-lg"
+                    className="bg-[#FF277E] hover:bg-[#FF277E] text-white px-6 py-2 rounded-lg font-medium transition-all duration-300 transform hover:scale-105 shadow-lg"
                   >
                     Aplicar Filtros
                   </Button>
@@ -360,7 +360,7 @@ const IndicadorDeEquipos = () => {
                       <div className="text-sm text-gray-600">
                         {operatorLabel}
                         {filter.operator !== "empty" && (
-                          <span className="text-comfama font-medium ml-1">
+                          <span className="text-[#FF277E] font-medium ml-1">
                             {filter.value}
                           </span>
                         )}
