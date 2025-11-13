@@ -12,6 +12,7 @@ export default defineConfig({
     alias: {
       "@": path.resolve(__dirname, "./src"),
     },
+    dedupe: ["react", "react-dom"],
   },
   build: {
     rollupOptions: {
@@ -19,6 +20,15 @@ export default defineConfig({
         manualChunks: (id) => {
           // Separar node_modules en chunks más pequeños
           if (id.includes("node_modules")) {
+            // React y React DOM deben estar juntos y primero
+            // Incluir también react/jsx-runtime para evitar problemas
+            if (
+              id.includes("react") ||
+              id.includes("react-dom") ||
+              id.includes("react/jsx-runtime")
+            ) {
+              return "vendor-react";
+            }
             // Dependencias grandes de gráficos
             if (id.includes("recharts")) {
               return "vendor-recharts";
@@ -27,19 +37,15 @@ export default defineConfig({
             if (id.includes("xlsx")) {
               return "vendor-xlsx";
             }
-            // React y React DOM
-            if (id.includes("react") || id.includes("react-dom")) {
-              return "vendor-react";
-            }
             // React Router
             if (id.includes("react-router")) {
               return "vendor-router";
             }
-            // Radix UI
+            // Radix UI - mantener en chunk separado pero después de React
             if (id.includes("@radix-ui")) {
               return "vendor-radix";
             }
-            // TanStack Table
+            // TanStack Table - mantener en chunk separado pero después de React
             if (id.includes("@tanstack")) {
               return "vendor-tanstack";
             }
@@ -48,11 +54,15 @@ export default defineConfig({
               return "vendor-icons";
             }
             // Otras dependencias de node_modules
+            // Nota: Estas dependencias pueden depender de React, pero Vite debería manejar el orden de carga
             return "vendor-other";
           }
         },
       },
     },
     chunkSizeWarningLimit: 1000, // Aumentar el límite a 1MB para evitar advertencias innecesarias
+  },
+  optimizeDeps: {
+    include: ["react", "react-dom", "react/jsx-runtime"],
   },
 });
