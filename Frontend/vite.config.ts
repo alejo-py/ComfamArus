@@ -17,7 +17,7 @@ export default defineConfig({
   build: {
     rollupOptions: {
       output: {
-        manualChunks: (id) => {
+        manualChunks(id) {
           // Separar node_modules en chunks más pequeños
           if (id.includes("node_modules")) {
             // React y React DOM deben estar juntos y primero
@@ -49,20 +49,47 @@ export default defineConfig({
             if (id.includes("@tanstack")) {
               return "vendor-tanstack";
             }
-            // Iconos
-            if (id.includes("lucide-react") || id.includes("@iconify")) {
+            // Iconos - @iconify-icon/react puede depender de React, mantenerlo separado pero después de React
+            if (id.includes("lucide-react")) {
               return "vendor-icons";
             }
+            // @iconify-icon/react puede necesitar React, mantenerlo en vendor-icons pero asegurar orden
+            if (id.includes("@iconify")) {
+              return "vendor-icons";
+            }
+            // Dependencias que pueden depender de React - moverlas a vendor-react para evitar problemas
+            // Estas dependencias comunes suelen depender de React
+            if (
+              id.includes("clsx") ||
+              id.includes("tailwind-merge") ||
+              id.includes("class-variance-authority") ||
+              id.includes("axios")
+            ) {
+              return "vendor-utils";
+            }
             // Otras dependencias de node_modules
-            // Nota: Estas dependencias pueden depender de React, pero Vite debería manejar el orden de carga
+            // IMPORTANTE: Si alguna dependencia aquí depende de React, puede causar problemas
+            // Por ahora, dejamos que Vite maneje el orden de carga
             return "vendor-other";
           }
         },
       },
     },
     chunkSizeWarningLimit: 1000, // Aumentar el límite a 1MB para evitar advertencias innecesarias
+    commonjsOptions: {
+      include: [/node_modules/],
+      transformMixedEsModules: true,
+    },
+  },
+  ssr: {
+    noExternal: ["react", "react-dom"],
   },
   optimizeDeps: {
     include: ["react", "react-dom", "react/jsx-runtime"],
+    esbuildOptions: {
+      define: {
+        global: "globalThis",
+      },
+    },
   },
 });
