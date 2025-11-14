@@ -15,16 +15,39 @@ export default defineConfig({
     dedupe: ["react", "react-dom"],
   },
   build: {
-    // Desactivar manual chunking para evitar problemas con el orden de carga de React
-    // Vite manejará automáticamente el chunking y el orden de carga
-    chunkSizeWarningLimit: 1000, // Aumentar el límite a 1MB para evitar advertencias innecesarias
+    chunkSizeWarningLimit: 1000,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          // Separar vendor chunks para mejor caching
+          "react-vendor": ["react", "react-dom", "react-router-dom"],
+          "ui-vendor": [
+            "@tanstack/react-table",
+            "@radix-ui/react-dropdown-menu",
+            "@radix-ui/react-slot",
+            "lucide-react",
+          ],
+          "chart-vendor": ["recharts"],
+          "utils-vendor": ["axios", "xlsx", "clsx", "tailwind-merge"],
+        },
+      },
+    },
     commonjsOptions: {
       include: [/node_modules/],
       transformMixedEsModules: true,
     },
+    // Optimizar para producción
+    minify: "esbuild",
+    sourcemap: false,
   },
   optimizeDeps: {
-    include: ["react", "react-dom", "react/jsx-runtime"],
+    include: [
+      "react",
+      "react-dom",
+      "react/jsx-runtime",
+      "react-router-dom",
+      "@tanstack/react-table",
+    ],
     esbuildOptions: {
       define: {
         global: "globalThis",

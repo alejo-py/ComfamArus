@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useState } from "react";
 
 type TodoItem = {
   id: string;
@@ -8,19 +8,13 @@ type TodoItem = {
 
 type TodoListProps = {
   storageKey?: string;
-  title?: string;
-  showHeader?: boolean;
 };
 
 const generateId = (): string => {
   return `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
 };
 
-const TodoList = ({
-  storageKey = "todo-list",
-  title = "TodoList",
-  showHeader = true,
-}: TodoListProps) => {
+const TodoList = ({ storageKey = "todo-list" }: TodoListProps) => {
   const [items, setItems] = useState<TodoItem[]>([]);
   const [input, setInput] = useState("");
 
@@ -48,11 +42,6 @@ const TodoList = ({
       // Ignorar storage full
     }
   }, [items, storageKey]);
-
-  const remaining = useMemo(
-    () => items.filter((i) => !i.completed).length,
-    [items]
-  );
 
   const handleAdd = () => {
     const trimmed = input.trim();
@@ -90,24 +79,6 @@ const TodoList = ({
 
   return (
     <section className="w-full max-w-2xl mx-auto">
-      {showHeader && (
-        <div className="flex items-center justify-between mb-6 pb-4 border-b border-gray-200">
-          <h2 className="text-3xl font-bold bg-gradient-to-r from-[#FF277E] to-pink-600 bg-clip-text text-transparent">
-            {title}
-          </h2>
-          <div className="flex items-center gap-2">
-            <span className="text-sm font-medium text-gray-600">
-              {remaining} {remaining === 1 ? "pendiente" : "pendientes"}
-            </span>
-            {items.length > 0 && (
-              <span className="text-xs text-gray-400">
-                ({items.length} {items.length === 1 ? "tarea" : "tareas"})
-              </span>
-            )}
-          </div>
-        </div>
-      )}
-
       <div
         className="flex gap-3 mb-6"
         role="group"
@@ -223,5 +194,3 @@ const TodoList = ({
 };
 
 export default TodoList;
-
-

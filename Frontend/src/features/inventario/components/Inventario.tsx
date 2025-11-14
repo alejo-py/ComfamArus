@@ -782,11 +782,11 @@ const Inventario = () => {
   );
 
   return (
-    <div className="h-full flex gap-4 p-4">
+    <div className="h-full flex gap-4">
       {/* Columna izquierda */}
       <div className="w-2/5 flex flex-col gap-4">
         {/* Botón CARGAR ARCHIVO */}
-        <div className="bg-white rounded-lg border p-4">
+        <div className="bg-white rounded-lg border border-gray-200 p-4">
           <div className="flex items-center gap-2 mb-2">
             <FileSpreadsheet className="h-5 w-5 text-[#FF277E]" />
             <h3 className="font-semibold text-gray-800">Cargar Inventario</h3>
@@ -801,7 +801,7 @@ const Inventario = () => {
           {archivoCargado && (
             <div className="mt-3 p-2 bg-green-50 border border-green-200 rounded-lg">
               <div className="flex items-center gap-2">
-                <CheckCircle2 className="h-4 w-4 text-green-600 flex-shrink-0" />
+                <CheckCircle2 className="h-4 w-4 text-green-600" />
                 <span className="text-xs text-green-700 font-medium">
                   Archivo cargado: {archivoCargado}
                 </span>
@@ -811,8 +811,8 @@ const Inventario = () => {
         </div>
 
         {/* Tabla editable */}
-        <div className="bg-white rounded-lg border flex flex-col shadow-sm max-h-[600px]">
-          <div className="p-4 border-b bg-gray-50 flex-shrink-0">
+        <div className="bg-white rounded-lg border border-gray-200 flex flex-col shadow-sm max-h-[600px]">
+          <div className="p-4 border-b border-gray-200 bg-gray-50">
             <div className="flex items-center justify-between">
               <div>
                 <h3 className="font-semibold text-gray-800">
@@ -893,7 +893,7 @@ const Inventario = () => {
         </div>
 
         {/* Contador de seriales y duplicados */}
-        <div className="bg-white rounded-lg border p-4 shadow-sm space-y-3">
+        <div className="bg-white rounded-lg border border-gray-200 p-4 shadow-sm space-y-3">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <FileSpreadsheet className="h-4 w-4 text-gray-500" />
@@ -904,7 +904,7 @@ const Inventario = () => {
             </span>
           </div>
           {serialesDuplicados.cantidad > 0 && (
-            <div className="pt-3 border-t">
+            <div className="pt-3 border-t border-gray-200">
               <div className="flex items-center justify-between mb-2">
                 <div className="flex items-center gap-2">
                   <AlertCircle className="h-4 w-4 text-orange-500" />
@@ -991,7 +991,7 @@ const Inventario = () => {
                     {estadisticas.totalNoEncontrados}
                   </div>
                 </div>
-                <div className="bg-white rounded-lg p-4 border border-blue-200 shadow-sm hover:shadow-md transition-shadow bg-gradient-to-br from-blue-50 to-white">
+                <div className="bg-white rounded-lg p-4 border border-blue-200 shadow-sm hover:shadow-md transition-shadow">
                   <div className="flex items-center gap-2 mb-2">
                     <TrendingUp className="h-4 w-4 text-blue-600" />
                     <span className="text-xs text-gray-500 uppercase tracking-wide">
@@ -1200,7 +1200,7 @@ const Inventario = () => {
             </div>
           ) : (
             <>
-              <div className="p-4 border-b bg-gray-50 flex-shrink-0">
+              <div className="p-4 border-b border-gray-200 bg-gray-50">
                 <h3 className="font-semibold text-gray-800">
                   {rightTableData.length > 0
                     ? `Resultados de la Comparación (${rightTableData.length} registros)`
@@ -1229,7 +1229,7 @@ const Inventario = () => {
         <Button
           onClick={handleExportar}
           disabled={rightTableData.length === 0}
-          className="w-full bg-[#FF277E] hover:bg-[#FF277E]/90 text-white px-6 py-3 rounded-lg font-medium shadow-md transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+          className="w-full bg-[#FF277E]/80 hover:bg-[#FF277E]/90 text-white px-6 py-3 rounded-lg font-medium shadow-md transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
         >
           <Upload className="h-4 w-4" />
           Exportar Resultados a Excel

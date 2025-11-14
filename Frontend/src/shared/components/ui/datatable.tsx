@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import {
   Table,
   TableBody,
@@ -25,6 +25,23 @@ interface DataTableProps<TData> {
   searchButton?: React.ReactNode;
 }
 
+// Hook personalizado para debounce
+const useDebounce = <T,>(value: T, delay: number): T => {
+  const [debouncedValue, setDebouncedValue] = useState<T>(value);
+
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedValue(value);
+    }, delay);
+
+    return () => {
+      clearTimeout(handler);
+    };
+  }, [value, delay]);
+
+  return debouncedValue;
+};
+
 export default function DataTable<TData>({
   data,
   columns,
@@ -38,17 +55,11 @@ export default function DataTable<TData>({
   const tableRef = React.useRef<HTMLTableElement | null>(null);
   const [, setContentWidth] = React.useState<number>(0);
   const [globalFilter, setGlobalFilter] = useState<string>("");
+  const debouncedGlobalFilter = useDebounce(globalFilter, 300);
 
-  const table = useReactTable({
-    data,
-    columns,
-    getCoreRowModel: getCoreRowModel(),
-    getSortedRowModel: getSortedRowModel(),
-    getFilteredRowModel: getFilteredRowModel(),
-    onColumnFiltersChange: setColumnFilters,
-    onSortingChange: setSorting,
-    onGlobalFilterChange: setGlobalFilter,
-    globalFilterFn: (row: any, _columnId: any, filterValue: string) => {
+  // Memoizar la función de filtro global para evitar recrearla en cada render
+  const globalFilterFn = useMemo(
+    () => (row: any, _columnId: any, filterValue: string) => {
       if (!filterValue) return true;
       const searchValue = filterValue.toLowerCase().trim();
       // Buscar en todas las columnas visibles
@@ -70,10 +81,23 @@ export default function DataTable<TData>({
         return normalizedValue.includes(normalizedSearch);
       });
     },
+    []
+  );
+
+  const table = useReactTable({
+    data,
+    columns,
+    getCoreRowModel: getCoreRowModel(),
+    getSortedRowModel: getSortedRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
+    onColumnFiltersChange: setColumnFilters,
+    onSortingChange: setSorting,
+    onGlobalFilterChange: setGlobalFilter,
+    globalFilterFn,
     state: {
       sorting,
       columnFilters,
-      globalFilter,
+      globalFilter: debouncedGlobalFilter,
     },
   });
 
@@ -106,7 +130,7 @@ export default function DataTable<TData>({
           {searchButton}
         </div>
       )}
-      <div className="rounded-md border flex-1 min-h-0">
+      <div className="rounded-md border border-gray-200 flex-1 min-h-0">
         <div
           ref={tableContainerRef}
           className="h-full overflow-y-auto overflow-x-auto"

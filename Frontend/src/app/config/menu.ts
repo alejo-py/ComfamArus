@@ -104,4 +104,3 @@ export const dashboardProcesses = [
     path: "/proceso-6",
   },
 ];
-
